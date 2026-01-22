@@ -1,0 +1,45 @@
+.wrapper {
+  padding-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .logo {
+    animation: logo 6s linear infinite;
+  }
+}
+
+.content {
+  padding-top: 16px;
+}
+
+.content-status {
+  color: white;
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.content-route-box {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.route-outlet-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+}
+
+@keyframes logo {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,6 @@
+# Ignore artifacts:
+dist/**
+*.md
+
+**/.git
+**/node_modules

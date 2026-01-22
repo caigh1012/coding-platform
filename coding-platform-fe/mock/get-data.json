@@ -1,0 +1,10 @@
+{
+  "data": {
+    "name": "张三",
+    "description": "我是一名学生",
+    "path": "高一",
+    "image": "图片地址"
+  },
+  "code": "0000",
+  "message": "请求成功"
+}
