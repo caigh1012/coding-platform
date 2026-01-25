@@ -1,0 +1,26 @@
+// antd layouts component reset
+.ant-layout {
+  height: 100%;
+}
+
+.ant-layout-header {
+  background: var(--ant-blue-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ant-layout-sider-children {
+  border-right: 1px solid #ccd;
+}
+
+.ant-layout-sider .ant-layout-sider-trigger {
+  position: absolute;
+  background: var(--ant-blue-6);
+}
+
+.ant-layout-content {
+  margin: 8px;
+  border-radius: 4px;
+  background: #ddd;
+}

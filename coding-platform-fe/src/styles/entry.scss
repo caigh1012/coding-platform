@@ -1,10 +1,17 @@
 @use 'reset';
 @use 'theme';
+@use 'layouts';
+@use 'antd';
 
 html,
-body,
-#root {
-  width: 100%;
+body {
   height: 100%;
-  background-color: rgb(35 39 47);
+}
+
+body {
+  min-width: 1280px;
+}
+
+#root {
+  height: 100%;
 }

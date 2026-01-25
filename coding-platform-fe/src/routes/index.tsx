@@ -1,27 +1,32 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
-import Home from './home/home';
-import PageOne from './page-one/page-one';
-import PageTwo from './page-two/page-two';
+import authMiddleware from '@/core/middlewares/auth.middleware';
+
+const Login = lazy(() => import('./login/login'));
+const Layouts = lazy(() => import('../layouts/layouts'));
+const Home = lazy(() => import('./home/home'));
+const NotFound = lazy(() => import('./not-found/not-found'));
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Home></Home>,
+      element: <Layouts></Layouts>,
+      middleware: [authMiddleware],
       children: [
         {
-          path: 'pageone',
-          element: <PageOne />,
-        },
-        {
-          path: 'pagetwo',
-          element: <PageTwo />,
+          index: true,
+          element: <Home></Home>,
         },
       ],
     },
     {
+      path: 'login',
+      element: <Login></Login>,
+    },
+    {
       path: '*',
-      element: <div>404页面</div>,
+      element: <NotFound></NotFound>,
     },
   ],
   { basename: baseHref },

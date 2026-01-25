@@ -48,6 +48,7 @@ const parseScssModule = (options = {}) => {
 
   const cssLoaderOptions = {
     sourceMap: isDevMode,
+    modules: false,
   };
 
   if (modules) {
@@ -122,13 +123,13 @@ const getModulesRules = () => [
   },
   {
     test: /\.scss$/,
-    exclude: path.resolve(__dirname, 'src/styles/'),
-    use: parseScssModule({ modules: true }),
+    include: path.resolve(__dirname, contentRelativePath, 'src/styles/'),
+    use: parseScssModule(),
   },
   {
     test: /\.scss$/,
-    include: path.resolve(__dirname, 'src/styles/'),
-    use: parseScssModule(),
+    exclude: [/node_modules/, path.resolve(__dirname, contentRelativePath, 'src/styles/')],
+    use: parseScssModule({ modules: true }),
   },
 ];
 

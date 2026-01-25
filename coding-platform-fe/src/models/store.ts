@@ -1,1 +1,1 @@
-export { useBearStore } from './states/bear-state';
+export { type TokenState, useTokenStore } from './states/token-state';

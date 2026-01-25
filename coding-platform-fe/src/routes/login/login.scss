@@ -1,0 +1,36 @@
+.login-wrap {
+  background: #c4d0e2;
+  height: 100%;
+}
+
+.login-main {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-left {
+  color: rebeccapurple;
+}
+
+.login-right {
+  background: #fff;
+  box-shadow: 1px 1px 1px #eee;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 18px;
+
+  span {
+    font-size: 16px;
+    font-weight: normal;
+    color: #646262;
+  }
+}
