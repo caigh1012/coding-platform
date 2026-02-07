@@ -1,5 +1,6 @@
-import { useTokenStore } from '@/models/store';
 import { redirect } from 'react-router';
+
+import { useTokenStore } from '@/models/store';
 
 /**
  * 认证 中间件

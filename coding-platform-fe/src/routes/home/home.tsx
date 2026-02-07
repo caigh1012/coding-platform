@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import logo from '@/assets/logo512.png';
 import { Button, Space } from 'antd';
+
+import logo from '@/assets/logo512.png';
+
 import './home.scss';
 
 const Home: React.FC = () => {

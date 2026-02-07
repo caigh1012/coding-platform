@@ -6,7 +6,7 @@
     "source.fixAll.eslint": "explicit",
     "source.fixAll.stylelint": "explicit"
   },
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "javascriptreact", "html"],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
   "stylelint.enable": true,
   "stylelint.validate": ["css", "scss", "sass", "less"],
   "files.eol": "\n",

@@ -1,8 +1,16 @@
 import { type AxiosRequestConfig, type AxiosResponse } from 'axios';
+import { Modal } from 'antd';
+
 import { SafeAny } from '@/helpers/safe-any';
+
 import HttpClient from './http-client';
 import { BusinessCode } from './business-code';
-import { Modal } from 'antd';
+
+var a;
+
+if (typeof a === 'undefined') {
+  // do something ...
+}
 
 /**
  * 指定后台返回的 json 的数据结构

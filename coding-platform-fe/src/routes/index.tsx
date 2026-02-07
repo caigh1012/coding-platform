@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
+
 import authMiddleware from '@/core/middlewares/auth.middleware';
 
 const Login = lazy(() => import('./login/login'));

@@ -1,1 +1,2 @@
+cd coding-platform-fe
 npm run lint-staged

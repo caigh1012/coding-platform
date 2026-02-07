@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
 import { Layout, Menu, Avatar } from 'antd';
+import { Outlet } from 'react-router';
+
 import logo from '@/assets/logo.svg';
+
+import type { MenuProps } from 'antd';
+
 import './layouts.scss';
 
 const { Header, Content, Sider } = Layout;
-
-import { Outlet } from 'react-router';
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
   const key = String(index + 1);

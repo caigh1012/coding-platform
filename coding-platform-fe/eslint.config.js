@@ -1,27 +1,29 @@
-const path = require('path');
-const jsEsint = require('@eslint/js');
+// const path = require('path');
+const { defineConfig, globalIgnores } = require('eslint/config');
 const globals = require('globals');
-const tseslint = require('typescript-eslint');
-const jsxA11y = require('eslint-plugin-jsx-a11y');
-const reactPlugin = require('eslint-plugin-react');
-const importPlugin = require('eslint-plugin-import');
 
-module.exports = [
-  {
-    ignores: ['node_modules/**/*', 'dist/**/*', 'build/**/*'], // 忽略目录
-  },
+const prettier = require('eslint-plugin-prettier');
+const js = require('@eslint/js');
+const ts = require('typescript-eslint');
+const importPlugin = require('eslint-plugin-import');
+const jsxA11y = require('eslint-plugin-jsx-a11y');
+const react = require('eslint-plugin-react');
+const reactHooks = require('eslint-plugin-react-hooks');
+
+module.exports = defineConfig([
+  globalIgnores(['node_modules/**/*', 'dist/**/*', 'build/**/*']),
   {
     files: ['**/*.js'],
-    ignores: ['scripts/husky.js', 'mock/index.js'],
     languageOptions: {
       sourceType: 'commonjs',
       globals: globals.node,
     },
     plugins: {
-      prettier: require('eslint-plugin-prettier'),
+      js,
+      prettier,
     },
     rules: {
-      ...jsEsint.configs.recommended.rules,
+      ...js.configs.recommended.rules,
       'prettier/prettier': 'error',
       'no-console': 'error',
     },
@@ -35,39 +37,60 @@ module.exports = [
         ...globals.serviceworker,
         ...globals.browser,
       },
+      ecmaVersion: 'latest',
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
       },
     },
+    settings: {
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+    },
     linterOptions: {
       noInlineConfig: false,
     },
-    settings: {
-      'import/resolver': {
-        alias: {
-          map: [['@', path.resolve(__dirname, 'src')]],
-          extensions: ['.ts', '.tsx', '.js'],
-        },
-      },
-    },
     plugins: {
-      prettier: require('eslint-plugin-prettier'),
+      prettier,
+      js,
       '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
-      react: reactPlugin,
       import: importPlugin,
+      react,
       'jsx-a11y': jsxA11y,
+      'react-hooks': reactHooks,
     },
     rules: {
-      ...tseslint.configs.recommended.rules,
-      ...reactPlugin.configs.recommended.rules,
+      ...js.configs.recommended.rules,
+      ...ts.configs.recommended.rules,
+      ...importPlugin.flatConfigs.recommended.rules,
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
       ...jsxA11y.configs.recommended.rules,
+      // prettier
       'prettier/prettier': 'error',
-      '@typescript-eslint/no-explicit-any': 'error',
-      'react/react-in-jsx-scope': 0,
-      'react/no-unknown-property': ['error', { ignore: ['styleName'] }],
+      // js rules
       'no-console': 'error',
+      'no-unused-vars': 'off',
+      'no-undef': 'off',
+      // typescript rules
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      // import rules
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', 'type', 'sibling', 'parent', 'index'],
+          'newlines-between': 'always',
+          warnOnUnassignedImports: true,
+          sortTypesGroup: true,
+        },
+      ],
+      // react rules
+      'react/react-in-jsx-scope': 'off',
+      'react/no-unknown-property': ['error', { ignore: ['styleName'] }],
     },
   },
-];
+]);

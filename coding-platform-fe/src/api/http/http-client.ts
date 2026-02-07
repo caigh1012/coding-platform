@@ -1,6 +1,8 @@
-import { SafeAny } from '@/helpers/safe-any';
-import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import axios from 'axios';
+
+import { SafeAny } from '@/helpers/safe-any';
+
+import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 
 class HttpClient {
   private instance: AxiosInstance;

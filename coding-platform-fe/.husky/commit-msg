@@ -1,2 +1,2 @@
-
+cd coding-platform-fe
 npx --no -- commitlint --edit $1

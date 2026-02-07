@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // 处理 Linux 系统的 husky 钩子不生效问题
 const process = require('process');
 const { exec } = require('child_process');

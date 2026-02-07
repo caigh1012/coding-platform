@@ -1,4 +1,5 @@
 import { wrap } from 'comlink';
+
 import { ComlinkWorkerApi } from './worker/comlink.worker';
 
 export const comlinkWorker = wrap<ComlinkWorkerApi>(

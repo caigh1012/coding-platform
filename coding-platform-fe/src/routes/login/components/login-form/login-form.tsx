@@ -1,10 +1,11 @@
 import React from 'react';
-import type { FormProps } from 'antd';
 import { Button, Form, Input } from 'antd';
+// import { replace, useNavigate } from 'react-router';
+
 import { postPwdLogin } from '@/api/login.api';
-import { useTokenStore } from '@/models/store';
-import { replace } from 'react-router';
-import { useNavigate } from 'react-router';
+// import { useTokenStore } from '@/models/store';
+
+import type { FormProps } from 'antd';
 
 import './login-form.scss';
 
@@ -14,10 +15,10 @@ type FieldType = {
 };
 
 const LoginForm = () => {
-  const { setToken } = useTokenStore();
-  let navigate = useNavigate();
+  // const { setToken } = useTokenStore();
+  // let navigate = useNavigate();
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    postPwdLogin(values).then((res) => {
+    postPwdLogin(values).then(() => {
       // console.log(res);
       // console.log(res.token);
       // setToken(res.token);
@@ -25,7 +26,7 @@ const LoginForm = () => {
     });
   };
 
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = () => {
     // console.log('Failed:', errorInfo);
   };
 
