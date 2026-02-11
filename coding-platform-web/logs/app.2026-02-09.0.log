@@ -1,0 +1,67 @@
+2026-02-09 20:25:49.378 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-02-09 20:25:49.417 [main] INFO  c.c.c.CodingPlatformApplication - Starting CodingPlatformApplication using Java 17.0.12 with PID 8788 (F:\my-github\coding-platform\coding-platform-web\target\classes started by Caigh in F:\my-github\coding-platform\coding-platform-web)
+2026-02-09 20:25:49.418 [main] INFO  c.c.c.CodingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-09 20:25:49.991 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-02-09 20:25:49.993 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-02-09 20:25:50.018 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2026-02-09 20:25:50.121 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [F:\my-github\coding-platform\coding-platform-web\target\classes\cn\caigh\coding_platform\dao\UserDao.class]
+2026-02-09 20:25:50.122 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userDao' and 'cn.caigh.coding_platform.dao.UserDao' mapperInterface
+2026-02-09 20:25:50.123 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'userDao'.
+2026-02-09 20:25:50.737 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-09 20:25:50.744 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-09 20:25:50.746 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-09 20:25:50.746 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-09 20:25:50.791 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-02-09 20:25:50.791 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1341 ms
+2026-02-09 20:25:51.619 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+2026-02-09 20:25:51.987 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-02-09 20:25:52.136 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-09 20:25:52.562 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-02-09 20:25:52.598 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-02-09 20:25:52.610 [main] INFO  c.c.c.CodingPlatformApplication - Started CodingPlatformApplication in 3.441 seconds (process running for 3.822)
+2026-02-09 20:26:45.822 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-09 20:26:45.823 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-09 20:26:45.824 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-02-09 20:26:45.838 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:26:46.296 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:27:00.295 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /login/pwd.json
+2026-02-09 20:27:00.303 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-09 20:27:00.306 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /login/pwd.json
+2026-02-09 20:27:00.427 [http-nio-8080-exec-3] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2026-02-09 20:27:00.619 [http-nio-8080-exec-3] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2026-02-09 20:27:00.699 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:27:00.723 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:27:00.734 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:27:00.738 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:31:33.567 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:31:33.573 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:31:33.599 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:31:33.602 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:43:53.883 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:43:53.889 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:43:53.902 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:43:53.907 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:46:41.188 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:46:41.192 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:46:41.205 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:46:41.209 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:46:53.803 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:46:53.808 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:46:53.816 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:46:53.821 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:59:47.727 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:59:47.731 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:59:47.740 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:59:47.744 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:59:48.298 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:59:48.303 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 20:59:48.310 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 20:59:48.315 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 21:11:40.621 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 21:11:40.627 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 21:11:40.638 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-09 21:11:40.641 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-09 21:30:10.296 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-09 21:30:10.549 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-09 21:30:10.567 [SpringApplicationShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2026-02-09 21:30:10.569 [SpringApplicationShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

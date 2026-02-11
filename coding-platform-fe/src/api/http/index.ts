@@ -2,22 +2,39 @@ import { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { Modal } from 'antd';
 
 import { SafeAny } from '@/helpers/safe-any';
+import { useTokenStore } from '@/models/store';
 
 import HttpClient from './http-client';
 import { BusinessCode } from './business-code';
 
-var a;
+/**
+ * 此处是一个闭包，利用闭包防止多个接口错误时只报一个弹框
+ */
+const showModal = () => {
+  let isOpen = false;
 
-if (typeof a === 'undefined') {
-  // do something ...
-}
+  return (message: string) => {
+    if (isOpen) return;
+    isOpen = true;
+    Modal.error({
+      title: '错误',
+      content: message,
+      okText: '知道了',
+      afterClose: () => {
+        isOpen = false;
+      },
+    });
+  };
+};
+
+const showModalFuc = showModal();
 
 /**
  * 指定后台返回的 json 的数据结构
  */
 interface IResponse<T = SafeAny> {
   code: string;
-  data: T;
+  data?: T;
   message: string;
 }
 
@@ -44,7 +61,10 @@ const instance = http.getInstance();
  */
 instance.interceptors.request.use(
   (config) => {
-    config.url = 'api/' + config.url;
+    const { token } = useTokenStore.getState();
+    config.headers = Object.assign(config.headers, { Authorization: token });
+    config.url = '/api' + config.url;
+
     return config;
   },
   (error) => Promise.reject(error),
@@ -59,25 +79,16 @@ instance.interceptors.response.use(
       const { code, data, message } = response.data;
       if (code === BusinessCode.Success) {
         return data;
-        // 用于处理业务错误
+        // 用于处理业务级别错误
       } else if (code === BusinessCode.Error) {
-        Modal.error({
-          title: '请求业务异常',
-          content: message,
-          okText: '知道了',
-        });
+        showModalFuc(message);
         return;
       }
     }
+    return;
   },
   // 处理 http 级别错误
-  (error) => {
-    Modal.error({
-      title: '服务器异常，请稍后再试',
-      content: error.message,
-      okText: '知道了',
-    });
-  },
+  (error) => showModalFuc(error.message),
 );
 
 export { http };

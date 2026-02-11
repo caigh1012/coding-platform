@@ -15,11 +15,11 @@ class HttpClient {
     return this.instance;
   }
 
-  get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  get<T>(url: string, config?: AxiosRequestConfig): Promise<T | undefined> {
     return this.instance.get(url, config);
   }
 
-  post<T>(url: string, data?: SafeAny, config?: AxiosRequestConfig): Promise<T> {
+  post<T>(url: string, data?: SafeAny, config?: AxiosRequestConfig): Promise<T | undefined> {
     return this.instance.post(url, data, config);
   }
 }

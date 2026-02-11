@@ -1,5 +1,6 @@
 package cn.caigh.coding_platform.dao;
 
+import cn.caigh.coding_platform.pojo.entity.Menu;
 import cn.caigh.coding_platform.pojo.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,10 @@ public interface UserDao {
    */
   @Select("SELECT * FROM `t_user`")
   List<User> getUserList();
+
+  /**
+   * 用户菜单列表
+   */
+  @Select("SELECT * FROM `t_menu`")
+  List<Menu> getMenuList();
 }

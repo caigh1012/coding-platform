@@ -5,19 +5,16 @@ import cn.caigh.coding_platform.exception.CustomException.TokenExpiredException;
 import cn.caigh.coding_platform.exception.CustomException.UnLoginException;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
  * 全局异常处理
@@ -40,7 +37,7 @@ public class GlobalExceptionHandler {
    * 当用户未注册时或者密码错误时，统一提示：用户名错误或密码错误，请重新尝试
    * 在Spring Security的默认行为中，为了不暴露用户是否存在的信息（防止用户名枚举攻击）
    */
-  @ExceptionHandler({BadCredentialsException.class, AuthenticationException.class})
+  @ExceptionHandler({BadCredentialsException.class})
   public ResultVo<String> BadCredentialsExceptionHandler(BadCredentialsException e) {
     return ResultVo.failed(GlobalExceptionMsg.BadCredentialMsg.getMessage());
   }
@@ -80,6 +77,23 @@ public class GlobalExceptionHandler {
   @ExceptionHandler({MethodArgumentNotValidException.class})
   public ResultVo<String> methodArgumentNotValidHandler(MethodArgumentNotValidException e) {
     return ResultVo.failed(GlobalExceptionMsg.MethodArgumentNotValidMsg.getMessage());
+  }
+
+  /**
+   * 身份验证异常处理程序
+   */
+//  @ExceptionHandler({AuthenticationException.class})
+//  public ResultVo<String> authenticationExceptionHandler(AuthenticationException e) {
+//    return ResultVo.failed(GlobalExceptionMsg.AuthenticationMsg.getMessage());
+//  }
+
+  /**
+   * 处理 404 资源访问
+   */
+  @ExceptionHandler({NoResourceFoundException.class})
+  public ResponseEntity<String> handleNoHandlerFoundException(NoResourceFoundException e) {
+    // 你可以自定义返回的信息和状态码
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
   }
 
   /**

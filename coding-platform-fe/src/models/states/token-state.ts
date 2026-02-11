@@ -12,8 +12,6 @@ export type TokenState = {
   clear: () => void;
 };
 
-// const middlewares = (f) => devtools(persist(f, { name: 'bearStore' }), { enabled: ENV === 'development' });
-
 export const useTokenStore = create<TokenState>()(
   devtools(
     persist(

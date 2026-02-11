@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { Layout, Menu, Avatar } from 'antd';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
+import { ItemType } from 'antd/es/menu/interface';
+import { useMap, useMount } from 'ahooks';
 
 import logo from '@/assets/logo.svg';
-
-import type { MenuProps } from 'antd';
+import { getMenuList } from '@/api/user.api';
+import { getMenuTree } from '@/helpers/menu';
+import { MenuItem } from '@/interfaces/user/user-menu.interface';
 
 import './layouts.scss';
 
 const { Header, Content, Sider } = Layout;
-
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-    children: Array.from({ length: 4 }).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
-
 const Layouts: React.FC = () => {
+  let navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [_menuMap, { set: setMenuItem, get }] = useMap<number, MenuItem>([]);
+  const [menu, setMenu] = useState<Array<ItemType>>([]);
+
+  useMount(() => {
+    getMenuList().then((res) => {
+      if (res) {
+        res.forEach((item) => {
+          setMenuItem(item.menu_id, item);
+        });
+        setMenu(getMenuTree(res));
+      }
+    });
+  });
+
+  function go(key: string) {
+    const node = get(Number(key));
+    if (node) {
+      navigate(node.path);
+    }
+  }
+
   return (
     <Layout>
       <Header>
@@ -55,9 +62,9 @@ const Layouts: React.FC = () => {
           <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderInlineEnd: 0 }}
-            items={items2}
+            items={menu}
+            onClick={(item) => go(item.key)}
           />
         </Sider>
         <Content>

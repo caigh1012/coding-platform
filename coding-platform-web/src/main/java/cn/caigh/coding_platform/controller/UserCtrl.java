@@ -1,5 +1,6 @@
 package cn.caigh.coding_platform.controller;
 
+import cn.caigh.coding_platform.pojo.entity.Menu;
 import cn.caigh.coding_platform.pojo.entity.User;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
 import cn.caigh.coding_platform.service.UserService;
@@ -18,5 +19,11 @@ public class UserCtrl {
   public ResultVo<List<User>> userList() {
     List<User> userList = userService.userList();
     return ResultVo.success(userList);
+  }
+
+  @GetMapping(value = "/user/menu.json")
+  public ResultVo<List<Menu>> menuList() {
+    List<Menu> menuList = userService.menuList();
+    return ResultVo.success(menuList);
   }
 }

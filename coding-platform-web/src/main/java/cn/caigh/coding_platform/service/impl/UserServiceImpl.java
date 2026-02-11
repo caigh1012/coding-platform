@@ -1,6 +1,7 @@
 package cn.caigh.coding_platform.service.impl;
 
 import cn.caigh.coding_platform.dao.UserDao;
+import cn.caigh.coding_platform.pojo.entity.Menu;
 import cn.caigh.coding_platform.pojo.entity.User;
 import cn.caigh.coding_platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class UserServiceImpl implements UserService {
    */
   public List<User> userList() {
     return userDao.getUserList();
+  }
+
+  public List<Menu> menuList() {
+    return userDao.getMenuList();
   }
 }
