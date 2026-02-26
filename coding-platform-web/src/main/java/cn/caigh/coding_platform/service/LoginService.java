@@ -19,5 +19,5 @@ public interface LoginService {
   /**
    * 退出登录
    */
-  ResultVo<String> loginout();
+  ResultVo<String> loginout(String username);
 }

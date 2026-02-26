@@ -9,19 +9,23 @@ const initialToken = { token: undefined };
 export type TokenState = {
   token?: string;
   setToken: (token: string) => void;
-  clear: () => void;
+  getToken: () => Promise<string | undefined>;
+  clearToken: () => void;
 };
 
 export const useTokenStore = create<TokenState>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         ...initialToken,
         setToken: (token) =>
           set(() => ({
             token,
           })),
-        clear: () => set(initialToken),
+        getToken: async () => {
+          return get().token;
+        },
+        clearToken: () => set(initialToken),
       }),
       { name: 'token' },
     ),

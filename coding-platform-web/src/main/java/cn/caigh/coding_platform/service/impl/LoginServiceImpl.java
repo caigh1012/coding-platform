@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -91,7 +92,16 @@ public class LoginServiceImpl implements LoginService {
   /**
    * 退出登录
    */
-  public ResultVo<String> loginout() {
-    return ResultVo.success();
+  public ResultVo<String> loginout(String username) {
+    String tokenKey = RedisKey.getTokenKey(username);
+    String uuid = (String) redisUtil.get(tokenKey);
+    String userKey = RedisKey.getUserKey(uuid);
+
+    redisUtil.delete(tokenKey);
+    redisUtil.delete(userKey);
+
+    // 清除SecurityContext（防止在当前请求后续操作中仍使用旧认证）
+    SecurityContextHolder.clearContext();
+    return ResultVo.success(null, "退出登录成功");
   }
 }

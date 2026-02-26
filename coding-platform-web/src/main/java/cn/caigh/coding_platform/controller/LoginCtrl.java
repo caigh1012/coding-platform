@@ -7,6 +7,8 @@ import cn.caigh.coding_platform.service.LoginService;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +40,8 @@ public class LoginCtrl {
    * 退出登录
    */
   @GetMapping(value = "/logout.json")
-  public ResultVo<String> loginOut() {
-    return loginService.loginout();
+  public ResultVo<String> loginOut(@AuthenticationPrincipal UserDetails userDetails) {
+    String username = userDetails.getUsername();
+    return loginService.loginout(username);
   }
 }

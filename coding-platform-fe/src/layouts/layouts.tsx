@@ -1,23 +1,80 @@
 import React, { useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
-import { Layout, Menu, Avatar } from 'antd';
+import { NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Menu, message, Avatar, Dropdown, Badge, Space, Modal } from 'antd';
 import { Outlet, useNavigate } from 'react-router';
 import { ItemType } from 'antd/es/menu/interface';
-import { useMap, useMount } from 'ahooks';
+import { useMap, useMount, useRequest } from 'ahooks';
 
 import logo from '@/assets/logo.svg';
 import { getMenuList } from '@/api/user.api';
 import { getMenuTree } from '@/helpers/menu';
 import { MenuItem } from '@/interfaces/user/user-menu.interface';
+import { logout } from '@/api/login.api';
+import { useTokenStore } from '@/models/store';
+
+import type { MenuProps } from 'antd';
 
 import './layouts.scss';
 
 const { Header, Content, Sider } = Layout;
+
+const items = [
+  {
+    key: '1',
+    label: <span>个人中心</span>,
+  },
+  {
+    key: '2',
+    label: <span>系统设置</span>,
+  },
+  {
+    key: '3',
+    label: <span>退出登录</span>,
+  },
+];
+
 const Layouts: React.FC = () => {
-  let navigate = useNavigate();
+  const { clearToken, getToken } = useTokenStore();
   const [collapsed, setCollapsed] = useState(false);
   const [_menuMap, { set: setMenuItem, get }] = useMap<number, MenuItem>([]);
   const [menu, setMenu] = useState<Array<ItemType>>([]);
+  const [open, setOpen] = useState(false);
+
+  /**
+   * useRequest 建议只使用 get 请求且无参数返回时使用
+   */
+  const { loading, run } = useRequest(logout, {
+    manual: true,
+    onSuccess: () => {
+      clearToken();
+      getToken().then((token) => {
+        if (!token) {
+          message.success('退出登录成功！');
+          setOpen(false);
+          navigate('/login');
+        }
+      });
+    },
+  });
+
+  let navigate = useNavigate();
+
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+    if (e.key === '3') {
+      setOpen(true);
+    }
+  };
+
+  function confirmLogout() {
+    run();
+  }
+
+  function go(key: string) {
+    const node = get(Number(key));
+    if (node) {
+      navigate(node.path);
+    }
+  }
 
   useMount(() => {
     getMenuList().then((res) => {
@@ -30,48 +87,62 @@ const Layouts: React.FC = () => {
     });
   });
 
-  function go(key: string) {
-    const node = get(Number(key));
-    if (node) {
-      navigate(node.path);
-    }
-  }
-
   return (
-    <Layout>
-      <Header>
-        <div styleName="header-left">
-          <div styleName="logo">
-            <img
-              src={logo}
-              alt="logo"
-            />
-          </div>
-          <h2 styleName="title">智能代码平台</h2>
-        </div>
-        <div>
-          <Avatar icon={<UserOutlined />}></Avatar>
-        </div>
-      </Header>
+    <>
       <Layout>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-          width={200}>
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            style={{ height: '100%', borderInlineEnd: 0 }}
-            items={menu}
-            onClick={(item) => go(item.key)}
-          />
-        </Sider>
-        <Content>
-          <Outlet></Outlet>
-        </Content>
+        <Header>
+          <div styleName="header-left">
+            <div styleName="logo">
+              <img
+                src={logo}
+                alt="logo"
+              />
+            </div>
+            <h2 styleName="title">智能代码平台</h2>
+          </div>
+          <div>
+            <Space align="center">
+              <Badge dot>
+                <NotificationOutlined style={{ fontSize: 16, color: '#fff' }} />
+              </Badge>
+              <Dropdown
+                menu={{ items, onClick: handleMenuClick }}
+                placement="bottomLeft">
+                <Avatar icon={<UserOutlined />}></Avatar>
+              </Dropdown>
+            </Space>
+          </div>
+        </Header>
+        <Layout>
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+            width={200}>
+            <Menu
+              mode="inline"
+              defaultSelectedKeys={['1']}
+              style={{ height: '100%', borderInlineEnd: 0 }}
+              items={menu}
+              onClick={(item) => go(item.key)}
+            />
+          </Sider>
+          <Content>
+            <Outlet></Outlet>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+      <Modal
+        title="退出登录确认"
+        okText="确认退出"
+        cancelText="取消"
+        open={open}
+        onOk={confirmLogout}
+        onCancel={() => setOpen(false)}
+        confirmLoading={loading}>
+        <div style={{ height: '80px' }}>确认是否退出登录？</div>
+      </Modal>
+    </>
   );
 };
 
