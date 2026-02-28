@@ -157,3 +157,15 @@
 2026-02-26 21:00:15.423 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
 2026-02-26 21:00:15.430 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
 2026-02-26 21:00:15.430 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-26 21:05:05.857 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-26 21:05:05.861 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-26 21:05:05.881 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-26 21:05:05.886 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-26 21:13:17.696 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-26 21:13:17.702 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-26 21:13:17.715 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /user/menu.json
+2026-02-26 21:13:17.720 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /user/menu.json
+2026-02-26 21:34:14.192 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-26 21:34:14.465 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-26 21:34:14.475 [SpringApplicationShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2026-02-26 21:34:14.476 [SpringApplicationShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

@@ -34,11 +34,12 @@ const items = [
 ];
 
 const Layouts: React.FC = () => {
-  const { clearToken, getToken } = useTokenStore();
+  const { clearToken } = useTokenStore();
   const [collapsed, setCollapsed] = useState(false);
   const [_menuMap, { set: setMenuItem, get }] = useMap<number, MenuItem>([]);
   const [menu, setMenu] = useState<Array<ItemType>>([]);
   const [open, setOpen] = useState(false);
+  let navigate = useNavigate();
 
   /**
    * useRequest 建议只使用 get 请求且无参数返回时使用
@@ -46,18 +47,15 @@ const Layouts: React.FC = () => {
   const { loading, run } = useRequest(logout, {
     manual: true,
     onSuccess: () => {
-      clearToken();
-      getToken().then((token) => {
+      clearToken().then((token) => {
         if (!token) {
-          message.success('退出登录成功！');
           setOpen(false);
+          message.success('退出登录成功！');
           navigate('/login');
         }
       });
     },
   });
-
-  let navigate = useNavigate();
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     if (e.key === '3') {
@@ -69,7 +67,7 @@ const Layouts: React.FC = () => {
     run();
   }
 
-  function go(key: string) {
+  function goto(key: string) {
     const node = get(Number(key));
     if (node) {
       navigate(node.path);
@@ -124,7 +122,7 @@ const Layouts: React.FC = () => {
               defaultSelectedKeys={['1']}
               style={{ height: '100%', borderInlineEnd: 0 }}
               items={menu}
-              onClick={(item) => go(item.key)}
+              onClick={(item) => goto(item.key)}
             />
           </Sider>
           <Content>
@@ -140,7 +138,7 @@ const Layouts: React.FC = () => {
         onOk={confirmLogout}
         onCancel={() => setOpen(false)}
         confirmLoading={loading}>
-        <div style={{ height: '80px' }}>确认是否退出登录？</div>
+        <div style={{ height: '40px' }}>确认是否退出登录？</div>
       </Modal>
     </>
   );

@@ -1,33 +1,11 @@
 import { type AxiosRequestConfig, type AxiosResponse } from 'axios';
-import { Modal } from 'antd';
 
 import { SafeAny } from '@/helpers/safe-any';
 import { useTokenStore } from '@/models/store';
 
 import HttpClient from './http-client';
 import { BusinessCode } from './business-code';
-
-/**
- * 此处是一个闭包，利用闭包防止多个接口错误时只报一个弹框
- */
-const showModal = () => {
-  let isOpen = false;
-
-  return (message: string) => {
-    if (isOpen) return;
-    isOpen = true;
-    Modal.error({
-      title: '错误',
-      content: message,
-      okText: '知道了',
-      afterClose: () => {
-        isOpen = false;
-      },
-    });
-  };
-};
-
-const showModalFuc = showModal();
+import { showErrorModal } from './error-modal';
 
 /**
  * 指定后台返回的 json 的数据结构
@@ -79,16 +57,15 @@ instance.interceptors.response.use(
       const { code, data, message } = response.data;
       if (code === BusinessCode.Success) {
         return data;
+      } else {
         // 用于处理业务级别错误
-      } else if (code === BusinessCode.Error) {
-        showModalFuc(message);
+        showErrorModal(message, code);
         return;
       }
     }
-    return;
   },
   // 处理 http 级别错误
-  (error) => showModalFuc(error.message),
+  (error) => showErrorModal(error.message),
 );
 
 export { http };

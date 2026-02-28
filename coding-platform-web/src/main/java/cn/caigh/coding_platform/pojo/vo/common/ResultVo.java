@@ -39,6 +39,7 @@ public class ResultVo<T> {
   /**
    * 成功返回
    * 返回默认消息
+   *
    * @return data 获取的数据
    */
   public static <T> ResultVo<T> success(T data) {
@@ -47,7 +48,8 @@ public class ResultVo<T> {
 
   /**
    * 成功返回
-   * @param data 获取的数据
+   *
+   * @param data    获取的数据
    * @param message 消息
    */
   public static <T> ResultVo<T> success(T data, String message) {
@@ -63,6 +65,7 @@ public class ResultVo<T> {
 
   /**
    * 失败返回
+   *
    * @param message 消息
    */
   public static <T> ResultVo<T> failed(String message) {
@@ -71,6 +74,7 @@ public class ResultVo<T> {
 
   /**
    * 失败返回
+   *
    * @param data 失败返回封装数据
    */
   public static <T> ResultVo<T> failed(T data) {
@@ -79,11 +83,21 @@ public class ResultVo<T> {
 
   /**
    * 失败返回
-   * @param data 失败返回封装数据
+   *
+   * @param data    失败返回封装数据
    * @param message 消息
    */
   public static <T> ResultVo<T> failed(T data, String message) {
     return new ResultVo<T>(RspBusinCode.FAILED.getCode(), message, data);
+  }
+
+  /**
+   * @param data    失败返回封装数据
+   * @param message 消息
+   * @param code    自定义返回Code
+   */
+  public static <T> ResultVo<T> failed(T data, String message, String code) {
+    return new ResultVo<T>(code, message, data);
   }
 
   public T getData() {

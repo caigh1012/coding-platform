@@ -1,6 +1,7 @@
 package cn.caigh.coding_platform.exception;
 
 import cn.caigh.coding_platform.constants.GlobalExceptionMsg;
+import cn.caigh.coding_platform.constants.RspBusinCode;
 import cn.caigh.coding_platform.exception.CustomException.TokenExpiredException;
 import cn.caigh.coding_platform.exception.CustomException.UnLoginException;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler({UnLoginException.class})
   public ResultVo<String> UnLoginExceptionHandler(UnLoginException e) {
-    return ResultVo.failed(e.getMessage());
+    return ResultVo.failed(null, e.getMessage(), RspBusinCode.UNLOGIN.getCode());
   }
 
   /**
@@ -57,7 +58,7 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler({TokenExpiredException.class})
   public ResultVo<String> TokenExpiredExceptionHandler(TokenExpiredException e) {
-    return ResultVo.failed(e.getMessage());
+    return ResultVo.failed(null, e.getMessage(), RspBusinCode.TOKENEXPIRED.getCode());
   }
 
   /**

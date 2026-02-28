@@ -5,6 +5,8 @@ package cn.caigh.coding_platform.constants;
  */
 public enum RspBusinCode {
   SUCCESS("0000", "请求成功"),
+  TOKENEXPIRED("9997", ""),
+  UNLOGIN("9998", ""),
   FAILED("9999", "请求失败");
   private final String code;
   private final String message;

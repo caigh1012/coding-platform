@@ -4,13 +4,12 @@ import { devtools, persist } from 'zustand/middleware';
 /**
  * 初始化 token
  */
-const initialToken = { token: undefined };
+export const initialToken = { token: undefined };
 
 export type TokenState = {
   token?: string;
   setToken: (token: string) => void;
-  getToken: () => Promise<string | undefined>;
-  clearToken: () => void;
+  clearToken: () => Promise<string | undefined>;
 };
 
 export const useTokenStore = create<TokenState>()(
@@ -22,10 +21,10 @@ export const useTokenStore = create<TokenState>()(
           set(() => ({
             token,
           })),
-        getToken: async () => {
+        clearToken: async () => {
+          set(initialToken);
           return get().token;
         },
-        clearToken: () => set(initialToken),
       }),
       { name: 'token' },
     ),
