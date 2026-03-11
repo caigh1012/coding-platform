@@ -1,4 +1,4 @@
-package cn.caigh.coding_platform.pojo.vo;
+package cn.caigh.coding_platform.pojo.vo.login;
 
 public class LoginVo {
   private String token;

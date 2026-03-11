@@ -34,9 +34,10 @@ public class WebSecurityConfig {
    */
   private static final String[] PUBLIC_URLS = {
       "/login/pwd.json",
-      "/register.json"
+      "/register.json",
+      "/captcha.json"
   };
-  
+
   @Autowired
   private UserDetailsServiceImpl userDetailService;
 

@@ -1,6 +1,8 @@
 package cn.caigh.coding_platform.dao;
 
+import cn.caigh.coding_platform.pojo.dto.user.DeleteUserDto;
 import cn.caigh.coding_platform.pojo.entity.Menu;
+import cn.caigh.coding_platform.pojo.entity.Role;
 import cn.caigh.coding_platform.pojo.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -33,4 +35,16 @@ public interface UserDao {
    */
   @Select("SELECT * FROM `t_menu`")
   List<Menu> getMenuList();
+
+  /**
+   * 角色列表
+   */
+  @Select("SELECT * FROM `t_role`")
+  List<Role> getRoleList();
+
+  /**
+   * 禁用用户或（软）删除用户
+   */
+  @Update("UPDATE t_user SET is_active = #{isActive} WHERE uni_phone_number = #{mobilePhone}")
+  int updateUserActive(DeleteUserDto deleteUserDto);
 }

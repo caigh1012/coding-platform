@@ -1,8 +1,10 @@
 package cn.caigh.coding_platform.controller;
 
-import cn.caigh.coding_platform.pojo.dto.PwdLoginDto;
-import cn.caigh.coding_platform.pojo.dto.UserRegisterDto;
-import cn.caigh.coding_platform.pojo.vo.LoginVo;
+import cn.caigh.coding_platform.pojo.dto.login.PwdLoginDto;
+import cn.caigh.coding_platform.pojo.dto.login.UserRegisterDto;
+import cn.caigh.coding_platform.pojo.vo.login.CaptchaVerifyVo;
+import cn.caigh.coding_platform.pojo.vo.login.LoginVo;
+import cn.caigh.coding_platform.service.CaptchaService;
 import cn.caigh.coding_platform.service.LoginService;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
 import jakarta.validation.Valid;
@@ -19,11 +21,18 @@ public class LoginCtrl {
   @Autowired
   private LoginService loginService;
 
+  @Autowired
+  private CaptchaService captchaService;
+
   /**
    * 用户注册
    */
   @PostMapping(value = "/register.json")
   public ResultVo<String> register(@RequestBody @Valid UserRegisterDto userRegisterDto) {
+    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyCaptcha(userRegisterDto.getCaptchaId(), userRegisterDto.getCaptchaCode());
+    if (!captchaVerifyVo.isVerifyPass()) {
+      return ResultVo.failed(captchaVerifyVo.getVerifyMessage());
+    }
     return loginService.register(userRegisterDto);
   }
 
@@ -32,6 +41,11 @@ public class LoginCtrl {
    */
   @PostMapping(value = "/login/pwd.json")
   public ResultVo<LoginVo> pwdLogin(@RequestBody @Valid PwdLoginDto pwdLoginDto) {
+    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyCaptcha(pwdLoginDto.getCaptchaId(), pwdLoginDto.getCaptchaCode());
+    System.out.println(captchaVerifyVo);
+    if (!captchaVerifyVo.isVerifyPass()) {
+      return ResultVo.failed(captchaVerifyVo.getVerifyMessage());
+    }
     LoginVo loginVo = loginService.pwdLogin(pwdLoginDto);
     return ResultVo.success(loginVo);
   }

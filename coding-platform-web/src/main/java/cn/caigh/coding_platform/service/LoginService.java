@@ -1,8 +1,8 @@
 package cn.caigh.coding_platform.service;
 
-import cn.caigh.coding_platform.pojo.dto.PwdLoginDto;
-import cn.caigh.coding_platform.pojo.dto.UserRegisterDto;
-import cn.caigh.coding_platform.pojo.vo.LoginVo;
+import cn.caigh.coding_platform.pojo.dto.login.PwdLoginDto;
+import cn.caigh.coding_platform.pojo.dto.login.UserRegisterDto;
+import cn.caigh.coding_platform.pojo.vo.login.LoginVo;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
 
 public interface LoginService {

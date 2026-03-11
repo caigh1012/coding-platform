@@ -2,6 +2,7 @@ package cn.caigh.coding_platform.exception;
 
 import cn.caigh.coding_platform.constants.GlobalExceptionMsg;
 import cn.caigh.coding_platform.constants.RspBusinCode;
+import cn.caigh.coding_platform.exception.CustomException.RequestBusyException;
 import cn.caigh.coding_platform.exception.CustomException.TokenExpiredException;
 import cn.caigh.coding_platform.exception.CustomException.UnLoginException;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -62,6 +64,14 @@ public class GlobalExceptionHandler {
   }
 
   /**
+   * 请求过于频繁，请稍后再试
+   */
+  @ExceptionHandler({RequestBusyException.class})
+  public ResultVo<String> RequestBusyExceptionHandler(RequestBusyException e) {
+    return ResultVo.failed(null, e.getMessage(), RspBusinCode.FAILED.getCode());
+  }
+
+  /**
    * 拒绝访问异常处理程序
    * 注意：无权限异常处理
    */
@@ -83,10 +93,10 @@ public class GlobalExceptionHandler {
   /**
    * 身份验证异常处理程序
    */
-//  @ExceptionHandler({AuthenticationException.class})
-//  public ResultVo<String> authenticationExceptionHandler(AuthenticationException e) {
-//    return ResultVo.failed(GlobalExceptionMsg.AuthenticationMsg.getMessage());
-//  }
+  @ExceptionHandler({AuthenticationException.class})
+  public ResultVo<String> authenticationExceptionHandler(AuthenticationException e) {
+    return ResultVo.failed(GlobalExceptionMsg.AuthenticationMsg.getMessage());
+  }
 
   /**
    * 处理 404 资源访问

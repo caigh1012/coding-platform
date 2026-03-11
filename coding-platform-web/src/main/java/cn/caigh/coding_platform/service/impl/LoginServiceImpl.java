@@ -3,15 +3,16 @@ package cn.caigh.coding_platform.service.impl;
 import cn.caigh.coding_platform.constants.DefaultRole;
 import cn.caigh.coding_platform.constants.RedisKey;
 import cn.caigh.coding_platform.dao.UserDao;
-import cn.caigh.coding_platform.pojo.dto.PwdLoginDto;
-import cn.caigh.coding_platform.pojo.dto.UserRegisterDto;
+import cn.caigh.coding_platform.pojo.dto.login.PwdLoginDto;
+import cn.caigh.coding_platform.pojo.dto.login.UserRegisterDto;
 import cn.caigh.coding_platform.pojo.entity.User;
-import cn.caigh.coding_platform.pojo.vo.LoginVo;
+import cn.caigh.coding_platform.pojo.vo.login.LoginVo;
 import cn.caigh.coding_platform.service.LoginService;
 import cn.caigh.coding_platform.pojo.vo.common.ResultVo;
 import cn.caigh.coding_platform.utils.JwtUtil;
 import cn.caigh.coding_platform.utils.RedisUtil;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.Objects;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -43,6 +44,9 @@ public class LoginServiceImpl implements LoginService {
     User user = userDao.getUserInfo(userRegisterDto.getUsername());
     // user 如果为 null，说明表里不存在可以进行添加
     if (user == null) {
+      if (!Objects.equals(userRegisterDto.getPassword(), userRegisterDto.getPasswordConfirm())) {
+        return ResultVo.failed("两次输入的密码不一致");
+      }
       User userInfo = new User();
       userInfo.setUsername(userRegisterDto.getUsername());
       userInfo.setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
@@ -74,7 +78,7 @@ public class LoginServiceImpl implements LoginService {
     // appId:token:username
     String tokenKey = RedisKey.getTokenKey(username);
     // 生成此时 uuid, 不同时期的登录uuid不同
-    String uuid = UUID.randomUUID().toString();
+    String uuid = IdUtil.simpleUUID();
 
     redisUtil.set(tokenKey, uuid); // 不设置过期
 

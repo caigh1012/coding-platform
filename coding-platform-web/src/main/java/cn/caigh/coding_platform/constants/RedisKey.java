@@ -15,7 +15,11 @@ public enum RedisKey {
   /**
    * 存储用户信息的key
    */
-  UserKey("cache:user");
+  UserKey("cache:user"),
+  /**
+   * 图形验证码Key
+   */
+  Captcha("captcha");
 
   private final String key;
 
@@ -33,5 +37,9 @@ public enum RedisKey {
 
   public static String getUserKey(String uuid) {
     return RedisKey.AppId.getKey() + ":" + RedisKey.UserKey.getKey() + ":" + uuid;
+  }
+
+  public static String getCaptchaKey(String uuid) {
+    return RedisKey.Captcha.getKey() + ":" + uuid;
   }
 }

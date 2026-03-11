@@ -5,7 +5,8 @@ import authMiddleware from '@/core/middlewares/auth.middleware';
 
 const Layouts = lazy(() => import('../layouts/layouts'));
 const Login = lazy(() => import('./login/login'));
-const Home = lazy(() => import('./home/home'));
+const Register = lazy(() => import('./register/register'));
+const Dashboard = lazy(() => import('./dashboard/dashboard'));
 const FileDownload = lazy(() => import('./file/file-download/file-download'));
 const FileUpload = lazy(() => import('./file/file-upload/file-upload'));
 const AiAgent = lazy(() => import('./ai/agent/agent'));
@@ -20,65 +21,74 @@ const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Layouts></Layouts>,
-      middleware: [authMiddleware],
       children: [
         {
-          index: true,
-          element: <Home></Home>,
-        },
-        {
-          path: 'file',
+          path: '',
+          element: <Layouts></Layouts>,
+          middleware: [authMiddleware],
           children: [
             {
-              path: 'download',
-              element: <FileDownload></FileDownload>,
+              index: true,
+              element: <Dashboard></Dashboard>,
             },
             {
-              path: 'upload',
-              element: <FileUpload></FileUpload>,
+              path: 'file',
+              children: [
+                {
+                  path: 'download',
+                  element: <FileDownload></FileDownload>,
+                },
+                {
+                  path: 'upload',
+                  element: <FileUpload></FileUpload>,
+                },
+              ],
+            },
+            {
+              path: 'ai',
+              children: [
+                {
+                  path: 'agent',
+                  element: <AiAgent></AiAgent>,
+                },
+                {
+                  path: 'tools',
+                  element: <AiToops></AiToops>,
+                },
+              ],
+            },
+            {
+              path: 'pmsmgr',
+              children: [
+                {
+                  path: 'userlist',
+                  element: <UserList></UserList>,
+                },
+                {
+                  path: 'pms',
+                  element: <Pms></Pms>,
+                },
+              ],
+            },
+            {
+              path: 'loginlog',
+              element: <LoginLog></LoginLog>,
+            },
+            {
+              path: 'systemsetting',
+              element: <SystemSetting></SystemSetting>,
             },
           ],
         },
         {
-          path: 'ai',
-          children: [
-            {
-              path: 'agent',
-              element: <AiAgent></AiAgent>,
-            },
-            {
-              path: 'tools',
-              element: <AiToops></AiToops>,
-            },
-          ],
+          path: 'login',
+          element: <Login></Login>,
         },
         {
-          path: 'pmsmgr',
-          children: [
-            {
-              path: 'userlist',
-              element: <UserList></UserList>,
-            },
-            {
-              path: 'pms',
-              element: <Pms></Pms>,
-            },
-          ],
-        },
-        {
-          path: 'loginlog',
-          element: <LoginLog></LoginLog>,
-        },
-        {
-          path: 'systemsetting',
-          element: <SystemSetting></SystemSetting>,
+          path: 'register',
+          element: <Register></Register>,
         },
       ],
-    },
-    {
-      path: 'login',
-      element: <Login></Login>,
     },
     {
       path: '*',

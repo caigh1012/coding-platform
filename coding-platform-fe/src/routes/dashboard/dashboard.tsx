@@ -3,9 +3,9 @@ import { Button, Space } from 'antd';
 
 import logo from '@/assets/logo512.png';
 
-import './home.scss';
+import './dashboard.scss';
 
-const Home: React.FC = () => {
+const Dashboard: React.FC = () => {
   const [num, setNum] = useState<number>(0);
 
   return (
@@ -37,4 +37,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

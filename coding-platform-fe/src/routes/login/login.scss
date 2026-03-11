@@ -21,16 +21,41 @@
   box-shadow: 1px 1px 1px #eee;
   padding: 20px;
   border-radius: 8px;
+
+  img {
+    width: 100px;
+    height: 50px;
+  }
 }
 
 .login-title {
-  text-align: center;
-  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 18px;
+  align-items: baseline;
 
-  span {
-    font-size: 16px;
-    font-weight: normal;
-    color: #646262;
+  span:first-child {
+    font-size: 24px;
+
+    span {
+      font-size: 16px;
+      font-weight: 400;
+      color: #646262;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  span:last-child {
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { postPwdLogin } from '@/api/login.api';
 import { useTokenStore } from '@/models/store';
@@ -40,14 +41,20 @@ const LoginForm = () => {
           label="用户名"
           name="username"
           rules={[{ required: true, message: '请输入用户名' }]}>
-          <Input />
+          <Input
+            prefix={<UserOutlined />}
+            placeholder="请输入用户名"
+          />
         </Form.Item>
 
         <Form.Item<FieldType>
           label="密码"
           name="password"
           rules={[{ required: true, message: '请输入密码' }]}>
-          <Input.Password />
+          <Input.Password
+            prefix={<LockOutlined />}
+            placeholder="请输入密码"
+          />
         </Form.Item>
 
         <Form.Item label={null}>

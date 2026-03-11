@@ -9,9 +9,10 @@ public enum GlobalExceptionMsg {
   JWTVerificationMsg("非法Token"),
   TokenExpiredMsg("token已过期，请重新登录！"),
   ExceptionMsg("系统服务器异常，请稍后重试"),
-  AuthenticationMsg("用户认证失败，请重新登录"),
+  AuthenticationMsg("用户未登录或登录失败，请重新登录"),
   MethodArgumentNotValidMsg("请求参数错误"),
-  AccessDeniedExceptionMsg("权限不足，请联系管理员");
+  AccessDeniedExceptionMsg("权限不足，请联系管理员"),
+  RequestBusyExceptionMsg("请求过于频繁，请稍后再试");
 
   private final String message;
 

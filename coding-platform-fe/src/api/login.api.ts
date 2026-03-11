@@ -1,6 +1,13 @@
-import { LoginRsp, PwdLoginDto } from '@/interfaces/login/login.interface';
+import { Captcha, LoginRsp, PwdLoginDto } from '@/interfaces/login/login.interface';
 
 import { http } from './http';
+
+/**
+ * 图形验证码
+ */
+export function getCaptcha() {
+  return http.get<Captcha>('/captcha.json');
+}
 
 /**
  * 密码登录
