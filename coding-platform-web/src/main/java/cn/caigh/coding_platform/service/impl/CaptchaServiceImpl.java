@@ -18,7 +18,7 @@ public class CaptchaServiceImpl implements CaptchaService {
   private RedisUtil redisUtil;
 
   @Override
-  public ResultVo<CaptchaVo> generateCaptcha() {
+  public ResultVo<CaptchaVo> generateGraphCaptcha() {
     // 生成验证码（宽度、高度、验证码位数、干扰线数量）
     LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100, 4, 50);
 
@@ -36,7 +36,7 @@ public class CaptchaServiceImpl implements CaptchaService {
   }
 
   @Override
-  public CaptchaVerifyVo verifyCaptcha(String captchaId, String code) {
+  public CaptchaVerifyVo verifyGraphCaptcha(String captchaId, String code) {
     String captchaKey = RedisKey.getCaptchaKey(captchaId);
     CaptchaVerifyVo captchaVerifyVo = new CaptchaVerifyVo();
     if (!redisUtil.hasKey(captchaKey)) {

@@ -74,7 +74,7 @@ public class PmsCtrl {
    */
   @PostMapping(value = "/pms/adduser.json")
   public ResultVo<String> addUser(@RequestBody @Valid AddUserDto addUserDto) {
-    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyCaptcha(addUserDto.getCaptchaId(), addUserDto.getCaptchaCode());
+    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyGraphCaptcha(addUserDto.getCaptchaId(), addUserDto.getCaptchaCode());
     if (!captchaVerifyVo.isVerifyPass()) {
       return ResultVo.failed(captchaVerifyVo.getVerifyMessage());
     }

@@ -40,3 +40,10 @@ mybatis:
   type-aliases-package: cn.caigh.coding_platform.pojo.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+## Custom configuration
+env: PERF
+
+tencent:
+  captchaAppid: 194520119
+  appSecretKey: DUhOXWubHcgMIk4UvApAFjHb8

@@ -35,9 +35,10 @@ public class WebSecurityConfig {
   private static final String[] PUBLIC_URLS = {
       "/login/pwd.json",
       "/register.json",
-      "/captcha.json",
-      "/encryptappid.json",
-      "/verifyAppid.json"
+      "/graph/captcha.json",
+      "/graph/captcha/verify.json",
+      "/tencent/encryptappid.json",
+      "/tencent/verifyappid.json"
   };
 
   @Autowired

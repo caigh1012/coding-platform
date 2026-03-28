@@ -8,10 +8,10 @@ public interface CaptchaService {
   /**
    * 获取验证码
    */
-  ResultVo<CaptchaVo> generateCaptcha();
+  ResultVo<CaptchaVo> generateGraphCaptcha();
 
   /**
    * 校验验证码
    */
-  CaptchaVerifyVo verifyCaptcha(String captchaId, String code);
+  CaptchaVerifyVo verifyGraphCaptcha(String captchaId, String code);
 }

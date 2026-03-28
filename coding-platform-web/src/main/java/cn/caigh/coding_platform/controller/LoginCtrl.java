@@ -29,7 +29,7 @@ public class LoginCtrl {
    */
   @PostMapping(value = "/register.json")
   public ResultVo<String> register(@RequestBody @Valid UserRegisterDto userRegisterDto) {
-    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyCaptcha(userRegisterDto.getCaptchaId(), userRegisterDto.getCaptchaCode());
+    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyGraphCaptcha(userRegisterDto.getCaptchaId(), userRegisterDto.getCaptchaCode());
     if (!captchaVerifyVo.isVerifyPass()) {
       return ResultVo.failed(captchaVerifyVo.getVerifyMessage());
     }
@@ -41,7 +41,7 @@ public class LoginCtrl {
    */
   @PostMapping(value = "/login/pwd.json")
   public ResultVo<LoginVo> pwdLogin(@RequestBody @Valid PwdLoginDto pwdLoginDto) {
-    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyCaptcha(pwdLoginDto.getCaptchaId(), pwdLoginDto.getCaptchaCode());
+    CaptchaVerifyVo captchaVerifyVo = captchaService.verifyGraphCaptcha(pwdLoginDto.getCaptchaId(), pwdLoginDto.getCaptchaCode());
     System.out.println(captchaVerifyVo);
     if (!captchaVerifyVo.isVerifyPass()) {
       return ResultVo.failed(captchaVerifyVo.getVerifyMessage());
