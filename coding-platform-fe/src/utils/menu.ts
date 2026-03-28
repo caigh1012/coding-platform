@@ -1,7 +1,6 @@
 import { ItemType } from 'antd/es/menu/interface';
 
 import { MenuItem } from '@/interfaces/user/user-menu.interface';
-import { SafeAny } from '@/helpers/safe-any';
 
 /**
  * 将 Menu List 结构转换成 MenuTree

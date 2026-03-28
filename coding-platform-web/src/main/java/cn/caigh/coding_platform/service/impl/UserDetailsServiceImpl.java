@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Resource
@@ -27,6 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       // 该 “用户未注册，请先注册” 不会返回到前端
       throw new UsernameNotFoundException("用户未注册，请先注册");
     }
+    List<String> roleList = userDao.roleListByMobile(user.getUsername());
+    user.setRoleList(roleList);
     return user;
   }
 }

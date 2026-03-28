@@ -6,29 +6,38 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // 获取 package.json 信息
 const pkg = require('../package.json');
 
 // 获取项目生产运维配置
-const config = require('../config/index.json');
+const config = require('../config/coding-platform-fe.json');
+
+/**
+ * 加载dev环境的环境变量
+ */
+require('@dotenvx/dotenvx').config({ path: ['.env.development'] });
 
 // 当前关联目录
 const contentRelativePath = '../';
 
 const isDevMode = process.env.NODE_ENV === 'development';
-const isProMode = process.env.NODE_ENV === 'production';
 
-if (isProMode) {
-  // 加载 Pro 环境
-  Object.entries(config).forEach(([k, v]) => {
-    process.env[k] = v;
-  });
-} else {
-  // 加载 dev 环境
-  require('@dotenvx/dotenvx').config({ path: ['.env.development'] });
-}
+const globalVarCfg = {
+  ...config,
+  baseHref: isDevMode ? '/' : config.baseHref,
+  Version: pkg.version,
+  Env: process.env.NODE_ENV,
+};
+
+/**
+ * 定义 DefinePlugin 注入的变量
+ */
+const defineCfg = {};
+Object.entries(globalVarCfg).forEach(([k, v]) => {
+  defineCfg[k] = JSON.stringify(v);
+});
 
 /**
  * entry 配置
@@ -134,7 +143,7 @@ const getModulesRules = () => [
 ];
 
 const getPlugins = () => [
-  // !isDevMode && new BundleAnalyzerPlugin(),
+  !isDevMode && process.env.isBundleAnalyzer === '1' && new BundleAnalyzerPlugin(),
   ...entryList.map(
     (i) =>
       new HtmlWebpackPlugin({
@@ -150,12 +159,7 @@ const getPlugins = () => [
         hash: true,
       }),
   ),
-  new webpack.DefinePlugin({
-    VERSION: JSON.stringify(pkg.version),
-    ENV: JSON.stringify(process.env.NODE_ENV),
-    APIURL: JSON.stringify(process.env.apiUrl),
-    baseHref: JSON.stringify(process.env.baseHref),
-  }),
+  new webpack.DefinePlugin(defineCfg),
   isDevMode && new ReactRefreshPlugin(),
 ];
 
@@ -172,7 +176,7 @@ const getDevServer = () => {
     host: '0.0.0.0',
     proxy: [
       {
-        context: [process.env.apiPrefix],
+        context: [config.apiPrefix],
         target: apiUrl,
         changeOrigin: true,
         secure: false,
@@ -188,10 +192,10 @@ const baseCfg = {
   context: path.resolve(__dirname, '../'),
   entry: createEntry(),
   output: {
-    path: path.resolve(__dirname, contentRelativePath, `dist${process.env.baseHref}`),
+    path: path.resolve(__dirname, contentRelativePath, `dist${globalVarCfg.baseHref}`),
     filename: isDevMode ? 'js/[name].js' : 'js/[name].[contenthash].js',
     clean: true,
-    publicPath: process.env.baseHref,
+    publicPath: globalVarCfg.baseHref,
     chunkFilename: 'chunks/[name].[contenthash].js',
   },
   plugins: getPlugins().filter(Boolean),

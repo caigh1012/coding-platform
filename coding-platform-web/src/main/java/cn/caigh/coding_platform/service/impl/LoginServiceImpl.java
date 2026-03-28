@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -40,6 +41,7 @@ public class LoginServiceImpl implements LoginService {
   /**
    * 用户注册
    */
+  @Transactional
   public ResultVo<String> register(UserRegisterDto userRegisterDto) {
     User user = userDao.getUserInfo(userRegisterDto.getUsername());
     // user 如果为 null，说明表里不存在可以进行添加
@@ -50,11 +52,11 @@ public class LoginServiceImpl implements LoginService {
       User userInfo = new User();
       userInfo.setUsername(userRegisterDto.getUsername());
       userInfo.setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
-      // 注册的用户默认设置管理员角色
-      userInfo.setRole_id(DefaultRole.Admin.getRoleId());
       DateTime now = DateTime.now();
       userInfo.setCreated_at(now);
       userDao.registerUser(userInfo);
+      // 注册的用户默认设置管理员角色
+      userDao.addRoleByMobile(userInfo.getUsername(), DefaultRole.Admin.getRoleId());
       return ResultVo.success(null, "用户注册成功");
     }
     return ResultVo.failed("该用户已经注册过了");

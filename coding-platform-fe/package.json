@@ -10,7 +10,7 @@
     "lint:fix": "npx eslint **/*.{tsx,ts,js,jsx} --fix",
     "stylelint": "stylelint src/**/*.scss",
     "lint-staged": "lint-staged",
-    "analyzer": "webpack --profile --json=stats.json && webpack-bundle-analyzer ./dist/stats.json",
+    "analyzer": "webpack --profile --json=stats.json && npx webpack-bundle-analyzer ./stats.json",
     "preview": "npx http-server dist -p 8900 -c 1",
     "linux": "node ./scripts/husky.js",
     "mock": "nodemon mock/index.js"

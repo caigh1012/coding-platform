@@ -13,6 +13,37 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>coding-platform</name>
     <description>coding-platform-web</description>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <activeProfileName>local</activeProfileName>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activeProfileName>dev</activeProfileName>
+            </properties>
+        </profile>
+        <profile>
+            <id>perf</id>
+            <properties>
+                <activeProfileName>perf</activeProfileName>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <activeProfileName>prod</activeProfileName>
+            </properties>
+        </profile>
+    </profiles>
+
     <url/>
     <licenses>
         <license/>
@@ -85,7 +116,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        
+
         <!--	token工具库	-->
         <dependency>
             <groupId>com.auth0</groupId>
@@ -98,6 +129,12 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.8.35</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-captcha</artifactId>
+            <version>3.1.1417</version>
         </dependency>
 
         <!--	测试	-->

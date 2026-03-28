@@ -36,9 +36,6 @@ module.exports = defineConfig([
       globals: {
         ...globals.serviceworker,
         ...globals.browser,
-        ENV: true,
-        APIURL: true,
-        baseHref: true,
       },
       ecmaVersion: 'latest',
       parserOptions: {
@@ -77,6 +74,8 @@ module.exports = defineConfig([
       // js rules
       'no-console': 'error',
       'no-unused-vars': 'off',
+      'no-undef': 'off',
+      'no-redeclare': 'off',
       // typescript rules
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -84,6 +83,7 @@ module.exports = defineConfig([
           varsIgnorePattern: '^_',
         },
       ],
+      '@typescript-eslint/no-redeclare': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       // import rules
       'import/order': [

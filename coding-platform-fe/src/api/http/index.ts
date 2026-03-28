@@ -1,6 +1,5 @@
 import { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
-import { SafeAny } from '@/helpers/safe-any';
 import { useTokenStore } from '@/models/store';
 
 import HttpClient from './http-client';
@@ -20,7 +19,7 @@ interface IResponse<T = SafeAny> {
  * 基础后台配置
  */
 const config: AxiosRequestConfig = {
-  baseURL: APIURL,
+  baseURL: apiUrl,
   timeout: 10000, // 10 秒超时
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
@@ -41,7 +40,7 @@ instance.interceptors.request.use(
   (config) => {
     const { token } = useTokenStore.getState();
     config.headers = Object.assign(config.headers, { Authorization: token });
-    config.url = '/api' + config.url;
+    config.url = apiPrefix + config.url;
 
     return config;
   },

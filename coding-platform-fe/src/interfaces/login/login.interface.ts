@@ -1,18 +1,4 @@
 /**
- * 图形验证码
- */
-export interface Captcha {
-  /**
-   * 图形验证码
-   */
-  readonly captcha: string;
-  /**
-   * 图形验证码id
-   */
-  readonly captchaId: string;
-}
-
-/**
  * 密码登录 dto
  */
 export interface PwdLoginDto {

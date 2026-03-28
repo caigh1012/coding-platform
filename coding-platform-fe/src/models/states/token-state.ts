@@ -28,6 +28,6 @@ export const useTokenStore = create<TokenState>()(
       }),
       { name: 'token' },
     ),
-    { enabled: ENV === 'development', name: 'token store' },
+    { enabled: Env === 'development', name: 'token store' },
   ),
 );

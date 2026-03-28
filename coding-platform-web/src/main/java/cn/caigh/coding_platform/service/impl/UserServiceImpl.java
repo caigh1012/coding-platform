@@ -1,10 +1,7 @@
 package cn.caigh.coding_platform.service.impl;
 
 import cn.caigh.coding_platform.dao.UserDao;
-import cn.caigh.coding_platform.pojo.dto.user.DeleteUserDto;
 import cn.caigh.coding_platform.pojo.entity.Menu;
-import cn.caigh.coding_platform.pojo.entity.Role;
-import cn.caigh.coding_platform.pojo.entity.User;
 import cn.caigh.coding_platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,30 +14,16 @@ public class UserServiceImpl implements UserService {
   UserDao userDao;
 
   /**
-   * 用户列表
+   * 查询用户的角色列表
    */
-  public List<User> userList() {
-    return userDao.getUserList();
+  public List<String> roleListByMobile(String username) {
+    return userDao.roleListByMobile(username);
   }
 
   /**
-   * 用户菜单
+   * 查询用户的菜单列表
    */
-  public List<Menu> menuList() {
-    return userDao.getMenuList();
-  }
-
-  /**
-   * 角色列表
-   */
-  public List<Role> roleList() {
-    return userDao.getRoleList();
-  }
-
-  /**
-   * 删除用户
-   */
-  public int deleteUser(DeleteUserDto deleteUserDto) {
-    return userDao.updateUserActive(deleteUserDto);
+  public List<Menu> menuListByMobile(String username) {
+    return userDao.menuListByMobile(username);
   }
 }

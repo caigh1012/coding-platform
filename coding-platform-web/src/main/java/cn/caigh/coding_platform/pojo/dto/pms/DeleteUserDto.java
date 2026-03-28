@@ -1,4 +1,4 @@
-package cn.caigh.coding_platform.pojo.dto.user;
+package cn.caigh.coding_platform.pojo.dto.pms;
 
 import jakarta.validation.constraints.NotBlank;
 

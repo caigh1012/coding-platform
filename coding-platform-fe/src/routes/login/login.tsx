@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { getCaptcha } from '@/api/login.api';
+import { getGraphCaptcha } from '@/api/captcha.api';
 
 import LoginForm from './components/login-form/login-form';
 import './login.scss';
@@ -10,15 +10,28 @@ const Login: React.FC = () => {
   const [captcha, setCaptcha] = useState('');
   let navigate = useNavigate();
 
+  /**
+   * 调用腾讯云滑块
+   */
+  // function openTencentCaptcha() {
+  //   getTencentEncryptAppid().then((res) => {
+  //     if (res) {
+  //       const captcha = new TencentCaptcha('194520119', () => {}, {
+  //         aidEncrypted: res,
+  //       });
+  //       captcha.show();
+  //     }
+  //   });
+  // }
+
   function gotoRegister() {
     navigate('/register', { replace: true });
   }
 
   useEffect(() => {
-    getCaptcha().then((res) => {
+    getGraphCaptcha().then((res) => {
       if (res) {
         setCaptcha(res.captcha);
-        // console.log(res);
       }
     });
   }, []);

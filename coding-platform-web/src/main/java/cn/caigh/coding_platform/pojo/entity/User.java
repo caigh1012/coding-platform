@@ -1,35 +1,37 @@
 package cn.caigh.coding_platform.pojo.entity;
 
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@JsonIgnoreProperties({"password", "enabled", "accountNonLocked", "credentialsNonExpired", "accountNonExpired"})
+
+@JsonIgnoreProperties({"password", "enabled", "accountNonLocked", "credentialsNonExpired", "accountNonExpired", "authorities"})
 public class User implements UserDetails {
   private static final Logger log = LoggerFactory.getLogger(User.class);
   private Integer id;
   private String uni_phone_number;
   private String password;
-  private String role_id;
+  private List<String> roleList;
   private Date created_at;
   private String is_active;
 
-  private List<SimpleGrantedAuthority> authorities;
-
   public User() {
+  }
+
+  public User(Integer id, String uni_phone_number, String password, List<String> roleList, Date created_at, String is_active) {
+    this.id = id;
+    this.uni_phone_number = uni_phone_number;
+    this.password = password;
+    this.roleList = roleList;
+    this.created_at = created_at;
+    this.is_active = is_active;
   }
 
   @Override
@@ -38,37 +40,25 @@ public class User implements UserDetails {
         "id=" + id +
         ", uni_phone_number='" + uni_phone_number + '\'' +
         ", password='" + password + '\'' +
-        ", role_id='" + role_id + '\'' +
+        ", roleList=" + roleList +
         ", created_at=" + created_at +
         ", is_active='" + is_active + '\'' +
-        ", authorities=" + authorities +
         '}';
   }
 
   @Override
-  @JsonIgnore
-  public List<SimpleGrantedAuthority> getAuthorities() {
-    if (ObjectUtil.isNull(role_id)) {
-      return List.of();
-    }
-    List<String> roleList = Arrays.asList(role_id.split(","));
-    authorities = roleList.stream()
-        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-        .collect(Collectors.toList());
-    return authorities;
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of();
   }
 
-  @JsonGetter("authorities")
-  public List<String> getAuthoritiesString() {
-    return Arrays.asList(role_id.split(","));
+  public Integer getId() {
+    return id;
   }
 
-  @JsonSetter("authorities")
-  public void setAuthoritiesString(List<String> list) {
-    this.role_id = StrUtil.join(",", list);
+  public void setId(Integer id) {
+    this.id = id;
   }
 
-  @Override
   public String getUsername() {
     return uni_phone_number;
   }
@@ -86,24 +76,16 @@ public class User implements UserDetails {
     this.password = password;
   }
 
-  public Integer getId() {
-    return id;
+  public List<String> getRoleList() {
+    return roleList;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getRole_id() {
-    return role_id;
-  }
-
-  public void setRole_id(String role_id) {
-    this.role_id = role_id;
+  public void setRoleList(List<String> roleList) {
+    this.roleList = roleList;
   }
 
   public Date getCreated_at() {
-    return new DateTime(created_at);
+    return created_at;
   }
 
   public void setCreated_at(Date created_at) {
