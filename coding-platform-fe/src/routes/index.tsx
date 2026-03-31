@@ -21,78 +21,73 @@ const router = createBrowserRouter(
   [
     {
       path: '/',
+      element: <Layouts></Layouts>,
+      middleware: [authMiddleware],
       children: [
         {
-          path: '',
-          element: <Layouts></Layouts>,
-          middleware: [authMiddleware],
+          index: true,
+          element: <Dashboard></Dashboard>,
+        },
+        {
+          path: 'file',
           children: [
             {
-              index: true,
-              element: <Dashboard></Dashboard>,
+              path: 'download',
+              element: <FileDownload></FileDownload>,
             },
             {
-              path: 'file',
-              children: [
-                {
-                  path: 'download',
-                  element: <FileDownload></FileDownload>,
-                },
-                {
-                  path: 'upload',
-                  element: <FileUpload></FileUpload>,
-                },
-              ],
-            },
-            {
-              path: 'ai',
-              children: [
-                {
-                  path: 'agent',
-                  element: <AiAgent></AiAgent>,
-                },
-                {
-                  path: 'tools',
-                  element: <AiToops></AiToops>,
-                },
-              ],
-            },
-            {
-              path: 'pmsmgr',
-              children: [
-                {
-                  path: 'userlist',
-                  element: <UserList></UserList>,
-                },
-                {
-                  path: 'pms',
-                  element: <Pms></Pms>,
-                },
-              ],
-            },
-            {
-              path: 'loginlog',
-              element: <LoginLog></LoginLog>,
-            },
-            {
-              path: 'systemsetting',
-              element: <SystemSetting></SystemSetting>,
+              path: 'upload',
+              element: <FileUpload></FileUpload>,
             },
           ],
         },
         {
-          path: 'login',
-          element: <Login></Login>,
+          path: 'ai',
+          children: [
+            {
+              path: 'agent',
+              element: <AiAgent></AiAgent>,
+            },
+            {
+              path: 'tools',
+              element: <AiToops></AiToops>,
+            },
+          ],
         },
         {
-          path: 'register',
-          element: <Register></Register>,
+          path: 'pmsmgr',
+          children: [
+            {
+              path: 'userlist',
+              element: <UserList></UserList>,
+            },
+            {
+              path: 'pms',
+              element: <Pms></Pms>,
+            },
+          ],
+        },
+        {
+          path: 'loginlog',
+          element: <LoginLog></LoginLog>,
+        },
+        {
+          path: 'systemsetting',
+          element: <SystemSetting></SystemSetting>,
+        },
+        {
+          path: '*',
+          element: <NotFound></NotFound>,
         },
       ],
     },
     {
-      path: '*',
-      element: <NotFound></NotFound>,
+      path: 'login',
+      element: <Login></Login>,
+    },
+    {
+      path: 'register',
+      element: <Register></Register>,
     },
   ],
   { basename: baseHref },

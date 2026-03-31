@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
-
-import { getGraphCaptcha } from '@/api/captcha.api';
 
 import LoginForm from './components/login-form/login-form';
 import './login.scss';
 
 const Login: React.FC = () => {
-  const [captcha, setCaptcha] = useState('');
   let navigate = useNavigate();
 
   /**
@@ -28,14 +25,6 @@ const Login: React.FC = () => {
     navigate('/register', { replace: true });
   }
 
-  useEffect(() => {
-    getGraphCaptcha().then((res) => {
-      if (res) {
-        setCaptcha(res.captcha);
-      }
-    });
-  }, []);
-
   return (
     <div styleName="login-wrap">
       <div styleName="login-main">
@@ -52,9 +41,6 @@ const Login: React.FC = () => {
             </span>
           </h3>
           <LoginForm></LoginForm>
-          <img
-            src={'data:image/png;base64,' + captcha}
-            alt=""></img>
         </div>
       </div>
     </div>

@@ -2,6 +2,9 @@
   "name": "coding-platform-fe",
   "version": "1.0.0",
   "description": "",
+  "sideEffects": [
+    "*.scss"
+  ],
   "scripts": {
     "prepare": "cd .. && husky coding-platform-fe/.husky",
     "start": "cross-env NODE_ENV=development webpack serve --config dev/webpack.config.js",
@@ -10,7 +13,6 @@
     "lint:fix": "npx eslint **/*.{tsx,ts,js,jsx} --fix",
     "stylelint": "stylelint src/**/*.scss",
     "lint-staged": "lint-staged",
-    "analyzer": "webpack --profile --json=stats.json && npx webpack-bundle-analyzer ./stats.json",
     "preview": "npx http-server dist -p 8900 -c 1",
     "linux": "node ./scripts/husky.js",
     "mock": "nodemon mock/index.js"

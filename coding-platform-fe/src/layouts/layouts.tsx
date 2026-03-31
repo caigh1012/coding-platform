@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from 'react-router';
 import { ItemType } from 'antd/es/menu/interface';
 import { useMap, useMount, useRequest } from 'ahooks';
 
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/logo192.png';
 import { getMenuList } from '@/api/user.api';
 import { getMenuTree } from '@/helpers/menu';
 import { MenuItem } from '@/interfaces/user/user-menu.interface';

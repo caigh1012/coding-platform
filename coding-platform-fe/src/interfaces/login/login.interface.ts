@@ -10,6 +10,16 @@ export interface PwdLoginDto {
    * 密码
    */
   readonly password: string;
+
+  /**
+   * 图形验证码id
+   */
+  readonly captchaId: string;
+
+  /**
+   * 图形验证码
+   */
+  readonly captchaCode: string;
 }
 
 /**
