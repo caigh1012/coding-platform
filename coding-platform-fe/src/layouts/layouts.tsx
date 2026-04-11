@@ -3,7 +3,7 @@ import { NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Menu, message, Avatar, Dropdown, Badge, Space, Modal } from 'antd';
 import { Outlet, useNavigate } from 'react-router';
 import { ItemType } from 'antd/es/menu/interface';
-import { useMap, useMount, useRequest } from 'ahooks';
+import { useMap, useMount, useRequest, useSessionStorageState } from 'ahooks';
 
 import logo from '@/assets/logo192.png';
 import { getMenuList } from '@/api/user.api';
@@ -39,6 +39,8 @@ const Layouts: React.FC = () => {
   const [_menuMap, { set: setMenuItem, get }] = useMap<number, MenuItem>([]);
   const [menu, setMenu] = useState<Array<ItemType>>([]);
   const [open, setOpen] = useState(false);
+  const [selectedKey, setSelectedKey] = useSessionStorageState('MenuSelectedKey', { defaultValue: ['1'] });
+  const [stateOpenKeys, setStateOpenKeys] = useSessionStorageState<string[]>('MenuOpenKey', { defaultValue: [] });
   let navigate = useNavigate();
 
   /**
@@ -65,6 +67,14 @@ const Layouts: React.FC = () => {
 
   function confirmLogout() {
     run();
+  }
+
+  function onSelectChange(selectedKeys: string[]) {
+    setSelectedKey(selectedKeys);
+  }
+
+  function onOpenChange(openKeys: string[]) {
+    setStateOpenKeys(openKeys);
   }
 
   function goto(key: string) {
@@ -119,9 +129,12 @@ const Layouts: React.FC = () => {
             width={200}>
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
+              openKeys={stateOpenKeys}
+              selectedKeys={selectedKey}
               style={{ height: '100%', borderInlineEnd: 0 }}
               items={menu}
+              onOpenChange={(item) => onOpenChange(item)}
+              onSelect={(item) => onSelectChange(item.selectedKeys)}
               onClick={(item) => goto(item.key)}
             />
           </Sider>

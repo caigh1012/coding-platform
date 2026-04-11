@@ -1,3 +1,6 @@
+/**
+ * 用户菜单项
+ */
 export interface MenuItem {
   /**
    * 菜单创建时间

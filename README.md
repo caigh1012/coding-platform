@@ -33,7 +33,9 @@
 
 由于这里只是可以模拟图形验证码可用，这里返回的图片采用 base64 形式，并将 redis 存储图形验证码的 code 的 key 发送给前端。
 
+## 三、后端开发细节总结
 
+3.1、@ResponseBody 和 @RequestBody
 
 
 
