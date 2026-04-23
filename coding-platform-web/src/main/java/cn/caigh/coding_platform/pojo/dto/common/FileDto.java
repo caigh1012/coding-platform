@@ -1,10 +1,10 @@
 package cn.caigh.coding_platform.pojo.dto.common;
 
-public class DeleteFileDto {
+public class FileDto {
   private String fileId;
   private String bucket;
 
-  public DeleteFileDto() {
+  public FileDto() {
   }
 
   @Override

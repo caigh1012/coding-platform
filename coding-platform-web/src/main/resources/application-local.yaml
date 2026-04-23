@@ -46,7 +46,7 @@ mybatis:
 env: DEV
 
 minio:
-  endpoint: http://192.168.1.190:9000/ # MinIO API 地址
+  endpoint: http://192.168.1.190:9000 # MinIO API 地址
   access-key: IBATBUkSBBEIYg3kSf7U
   secret-key: XSfLfbM325OqvE54a1y01TGyH8t8CeMvAEhkLtIh
 

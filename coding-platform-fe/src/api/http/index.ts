@@ -1,6 +1,8 @@
+import { saveAs } from 'file-saver';
 import { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
 import { useTokenStore } from '@/models/store';
+import { FileDto } from '@/interfaces/common/file.interface';
 
 import HttpClient from './http-client';
 import { BusinessCode } from './business-code';
@@ -52,6 +54,16 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
   (response: AxiosResponse<IResponse>) => {
+    if (response?.config?.url && response?.config?.url?.indexOf('.do') > -1) {
+      const data = response?.config?.data;
+      if (response?.data) {
+        const requestData: FileDto | null | undefined = data ? JSON.parse(data) : null;
+        if (requestData) {
+          saveAs(response.request.response, requestData.fileId);
+        }
+      }
+    }
+
     if (response.status >= 200 && response.status < 300) {
       const { code, data, message } = response.data;
       if (code === BusinessCode.Success) {

@@ -17,9 +17,9 @@ export interface FileRsp {
 }
 
 /**
- * 文件删除
+ * 文件请求（删除、下载）
  */
-export interface DeleteFileDto {
+export interface FileDto {
   /**
    * 文件id
    */

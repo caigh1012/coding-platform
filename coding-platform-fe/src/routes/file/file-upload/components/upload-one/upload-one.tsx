@@ -7,7 +7,7 @@ import { useTokenStore } from '@/models/store';
 import { FileRsp } from '@/interfaces/common/file.interface';
 import { beforeUpload } from '@/utils/before-upload';
 import { FileBucketEnum } from '@/config/file-bucket.enum';
-import { deleteFile } from '@/api/file.api';
+import { deleteFile, downloadFile } from '@/api/file.api';
 
 import type { UploadFile } from 'antd';
 
@@ -35,6 +35,10 @@ const UploadOne: React.FC = () => {
     return deleteFile({ fileId: file.uid, bucket: FileBucketEnum.UserInfo });
   }
 
+  function download(file: UploadFile) {
+    downloadFile({ fileId: file.uid, bucket: FileBucketEnum.UserInfo });
+  }
+
   return (
     <>
       <p>基于 antd 的 Upload 组件进行文件上传，原则上是原生input的封装</p>
@@ -49,8 +53,10 @@ const UploadOne: React.FC = () => {
         headers={{ Authorization: token || '' }}
         data={{ bucket: FileBucketEnum.UserInfo }}
         fileList={files}
-        showUploadList={{ showDownloadIcon: false, showPreviewIcon: true, showRemoveIcon: true }}
+        listType="picture"
+        showUploadList={{ showDownloadIcon: true, showPreviewIcon: true, showRemoveIcon: true }}
         onChange={onFileChange}
+        onDownload={(file) => download(file)}
         onRemove={(file) => removeFile(file)}>
         <Button icon={<UploadOutlined />}>Upload</Button>
       </Upload>

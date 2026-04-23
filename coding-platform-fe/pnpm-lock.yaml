@@ -38,6 +38,9 @@ importers:
       dayjs:
         specifier: ^1.11.19
         version: 1.11.19
+      file-saver:
+        specifier: ^2.0.5
+        version: 2.0.5
       immer:
         specifier: ^11.0.1
         version: 11.1.0
@@ -96,6 +99,9 @@ importers:
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: ^0.6.2
         version: 0.6.2(react-refresh@0.18.0)(webpack-dev-server@5.2.2)(webpack@5.104.1)
+      '@types/file-saver':
+        specifier: ^2.0.7
+        version: 2.0.7
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -1581,6 +1587,9 @@ packages:
   '@types/express@4.17.25':
     resolution: {integrity: sha512-dVd04UKsfpINUnK0yBoYHDF3xu7xVH4BuDotC/xGuycx4CgbP48X/KF/586bcObxT0HENHXEU8Nqtu6NR+eKhw==}
 
+  '@types/file-saver@2.0.7':
+    resolution: {integrity: sha512-dNKVfHd/jk0SkR/exKGj2ggkB45MAkzvWCaqLUUgkyjITkGNzH8H+yUwr+BLJUBjZOe9w8X3wgmXhZDRg1ED6A==}
+
   '@types/html-minifier-terser@6.1.0':
     resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
 
@@ -2984,6 +2993,9 @@ packages:
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
     engines: {node: '>=16.0.0'}
+
+  file-saver@2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -7027,6 +7039,8 @@ snapshots:
       '@types/qs': 6.14.0
       '@types/serve-static': 1.15.10
 
+  '@types/file-saver@2.0.7': {}
+
   '@types/html-minifier-terser@6.1.0': {}
 
   '@types/http-errors@2.0.5': {}
@@ -8758,6 +8772,8 @@ snapshots:
   file-entry-cache@8.0.0:
     dependencies:
       flat-cache: 4.0.1
+
+  file-saver@2.0.5: {}
 
   fill-range@7.1.1:
     dependencies:
