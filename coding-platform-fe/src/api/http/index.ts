@@ -4,6 +4,9 @@ import { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { useTokenStore } from '@/models/store';
 import { FileDto } from '@/interfaces/common/file.interface';
 
+const controller = new AbortController();
+const { signal } = controller;
+
 import HttpClient from './http-client';
 import { BusinessCode } from './business-code';
 import { showErrorModal } from './error-modal';
@@ -26,6 +29,7 @@ const config: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
   },
+  signal,
 };
 
 const http = new HttpClient(config);
@@ -54,6 +58,9 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
   (response: AxiosResponse<IResponse>) => {
+    /**
+     * 处理文件下载
+     */
     if (response?.config?.url && response?.config?.url?.indexOf('.do') > -1) {
       const data = response?.config?.data;
       if (response?.data) {
@@ -79,4 +86,4 @@ instance.interceptors.response.use(
   (error) => showErrorModal(error.message),
 );
 
-export { http };
+export { http, controller };

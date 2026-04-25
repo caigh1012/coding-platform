@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useTokenStore } from '@/models/store';
 import { FileRsp } from '@/interfaces/common/file.interface';
 import { beforeUpload } from '@/utils/before-upload';
-import { FileBucketEnum } from '@/config/file-bucket.enum';
+import { FileBucket } from '@/config/file-bucket.enum';
 import { deleteFile, downloadFile } from '@/api/file.api';
 
 import type { UploadFile } from 'antd';
@@ -32,11 +32,11 @@ const UploadOne: React.FC = () => {
   };
 
   function removeFile(file: UploadFile) {
-    return deleteFile({ fileId: file.uid, bucket: FileBucketEnum.UserInfo });
+    return deleteFile({ fileId: file.uid, bucket: FileBucket.UserInfo });
   }
 
   function download(file: UploadFile) {
-    downloadFile({ fileId: file.uid, bucket: FileBucketEnum.UserInfo });
+    downloadFile({ fileId: file.uid, bucket: FileBucket.UserInfo });
   }
 
   return (
@@ -51,7 +51,7 @@ const UploadOne: React.FC = () => {
         multiple
         maxCount={10}
         headers={{ Authorization: token || '' }}
-        data={{ bucket: FileBucketEnum.UserInfo }}
+        data={{ bucket: FileBucket.UserInfo }}
         fileList={files}
         listType="picture"
         showUploadList={{ showDownloadIcon: true, showPreviewIcon: true, showRemoveIcon: true }}

@@ -44,7 +44,7 @@ const Layouts: React.FC = () => {
   let navigate = useNavigate();
 
   /**
-   * useRequest 建议只使用 get 请求且无参数返回时使用
+   * ahooks 的 useRequest 建议只使用 get 请求且无参数返回时使用
    */
   const { loading, run } = useRequest(logout, {
     manual: true,

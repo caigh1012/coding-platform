@@ -1,8 +1,8 @@
 import { message } from 'antd';
 import Upload, { RcFile } from 'antd/es/upload';
 
-import { FileSuffix } from '@/config/file-bucket.enum';
 import { Maximum } from '@/config/constants';
+import { FileSuffix } from '@/config/file-suffix';
 
 /**
  * 用于文件上传时限制的文件大小和类型

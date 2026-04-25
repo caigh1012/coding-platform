@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Button, message } from 'antd';
 
 import { uploadFile } from '@/api/file.api';
-import { FileBucketEnum } from '@/config/file-bucket.enum';
+import { FileBucket } from '@/config/file-bucket.enum';
 const UploadTwo: React.FC = () => {
   const [files, setFiles] = useState<Record<number, File>>({});
   const inputRef = useRef(null);
@@ -21,7 +21,7 @@ const UploadTwo: React.FC = () => {
     const params = Object.values(files).map((item) => {
       const formData = new FormData();
       formData.append('file', item);
-      formData.append('bucket', FileBucketEnum.UserInfo);
+      formData.append('bucket', FileBucket.UserInfo);
       return uploadFile(formData);
     });
 
