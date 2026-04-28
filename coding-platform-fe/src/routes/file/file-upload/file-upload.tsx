@@ -5,6 +5,7 @@ import type { TabsProps } from 'antd';
 
 import UploadOne from './components/upload-one/upload-one';
 import UploadTwo from './components/upload-two/upload-two';
+import BigUpload from './components/big-upload/big-upload';
 import './file-upload.scss';
 
 const items: TabsProps['items'] = [
@@ -21,7 +22,7 @@ const items: TabsProps['items'] = [
   {
     key: '3',
     label: '方式3',
-    children: '大文件上传',
+    children: <BigUpload />,
   },
 ];
 
@@ -29,7 +30,7 @@ const FileUpload: React.FC = () => {
   return (
     <div styleName="wrapper">
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey="3"
         items={items}
       />
     </div>
