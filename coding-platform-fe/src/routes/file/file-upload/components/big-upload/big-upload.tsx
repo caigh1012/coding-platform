@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { message, Progress } from 'antd';
 import axios from 'axios';
+import * as Comlink from 'comlink';
 import { useSetState } from 'ahooks';
 
-import { fileUploadWorker } from '@/helpers/worker';
 import { Chunk } from '@/helpers/worker/flie-upload.worker';
 import { paralleTask } from '@/utils/paralle-task';
 import { ChunkSize } from '@/config/constants';
+import { createFileWorker } from '@/helpers/worker';
 
 interface IFileInfo {
   fileHash: string;
@@ -15,12 +16,10 @@ interface IFileInfo {
 
 const BigUpload: React.FC = () => {
   const [fileInfo, setFileInfo] = useSetState<IFileInfo>({ fileHash: '', fileName: '' });
-
   const [percent, setPercent] = useState(0);
-
   const [chunksProgress, setChunksProgress] = useSetState<Record<string, boolean>>({});
-
   const [totalChunks, setTotalChunks] = useState(0);
+  const workerRef = useRef<SafeAny>(null);
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e?.target?.files;
@@ -39,7 +38,7 @@ const BigUpload: React.FC = () => {
     setChunksProgress({});
 
     // 计算文件hash
-    let fileHash = await fileUploadWorker.computeHash(file);
+    let fileHash = await workerRef.current.fileWorkerApi.computeHash(file);
 
     const { data } = await axios.post('http://127.0.0.1:19528/upload/init', {
       fileHash,
@@ -68,7 +67,7 @@ const BigUpload: React.FC = () => {
     setChunksProgress(chunksProgressMiddle);
 
     // 3. 找出需要上传的分片
-    let chunks = await fileUploadWorker.createChunks(file, fileHash);
+    let chunks = await workerRef.current.fileWorkerApi.createChunks(file, fileHash);
     const needUpload = [];
     for (let i = 0; i < totalChunks; i++) {
       // 不咋 chunksProessMiddle 中的需要加入到 needUpload 进行上传
@@ -123,6 +122,15 @@ const BigUpload: React.FC = () => {
   }
 
   useEffect(() => {
+    const { fileWorker, fileWorkerApi } = createFileWorker();
+    workerRef.current = { fileWorker, fileWorkerApi };
+    return () => {
+      fileWorkerApi[Comlink.releaseProxy]?.();
+      fileWorker.terminate();
+    };
+  }, []);
+
+  useEffect(() => {
     if (fileInfo.fileHash) {
       if (Object.keys(chunksProgress).length === totalChunks && Object.values(chunksProgress).every(Boolean)) {
         mergeFile(fileInfo.fileHash, fileInfo.fileName, totalChunks);
@@ -134,6 +142,7 @@ const BigUpload: React.FC = () => {
     // 是否更新进度条
     const done = Object.values(chunksProgress).filter(Boolean).length;
     const percent = totalChunks > 0 ? Math.round((done / totalChunks) * 100) : 0;
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setPercent(percent);
   }, [totalChunks, chunksProgress]);

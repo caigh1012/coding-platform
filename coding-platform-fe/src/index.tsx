@@ -6,8 +6,4 @@ import './styles/entry.scss';
 
 const rootEl = document.getElementById('root') as HTMLElement;
 
-createRoot(rootEl).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+createRoot(rootEl).render(<App />);
