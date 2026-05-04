@@ -31,6 +31,7 @@
     "@dr.pogodin/babel-plugin-react-css-modules": "^6.13.8",
     "@eslint/js": "^9.39.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
+    "@tanstack/react-query-devtools": "^5.100.9",
     "@types/file-saver": "^2.0.7",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^25.0.10",

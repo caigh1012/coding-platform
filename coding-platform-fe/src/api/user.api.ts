@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios';
+
 import { MenuItem } from '@/interfaces/user/user-menu.interface';
 
 import { http } from './http';
@@ -5,6 +7,6 @@ import { http } from './http';
 /**
  * 用户菜单列表
  */
-export function getMenuList() {
-  return http.get<Array<MenuItem>>('/user/menu.json');
+export function getMenuList(config?: AxiosRequestConfig) {
+  return http.get<Array<MenuItem>>('/user/menu.json', config);
 }
