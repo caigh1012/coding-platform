@@ -19,6 +19,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    '@loadable/babel-plugin',
     '@babel/plugin-transform-runtime',
     ['@babel/plugin-syntax-dynamic-import'],
     '@babel/plugin-transform-class-properties',
