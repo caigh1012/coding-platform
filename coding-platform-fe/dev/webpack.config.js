@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // 获取 package.json 信息
@@ -154,11 +155,15 @@ const getPlugins = () => [
         template: i.template || '../template/index.html',
         templateParameters: {
           reactVersion: pkg.dependencies.react,
+          TJCaptcha: 'https://turing.captcha.qcloud.com/TJCaptcha.js',
         },
         favicon: path.resolve(__dirname, contentRelativePath, './public/favicon.ico'),
         hash: true,
       }),
   ),
+  new CopyPlugin({
+    patterns: [path.resolve(__dirname, './scripts/script-retry.js')],
+  }),
   new webpack.DefinePlugin(defineCfg),
   isDevMode && new ReactRefreshPlugin(),
 ];

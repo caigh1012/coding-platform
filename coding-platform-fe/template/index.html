@@ -6,11 +6,14 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <script src="https://turing.captcha.qcloud.com/TJCaptcha.js"></script>
+    <script src="./script-retry.js"></script>
   </head>
   <body>
     <div
       id="root"
       data-react-version="<%= reactVersion %>"></div>
+    <script
+      defer
+      src="<%= TJCaptcha %>"></script>
   </body>
 </html>
