@@ -1,3 +1,59 @@
 .wrapper {
-  color: red;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-wrapper {
+  height: 80%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+.chat-box {
+  width: 60%;
+
+  &.bot {
+    align-self: start;
+  }
+
+  &.user {
+    align-self: flex-end;
+  }
+}
+
+.chat {
+  display: flex;
+}
+
+.avatar-box {
+  order: -1;
+
+  &.bot {
+    margin-right: 12px;
+    order: -1;
+  }
+
+  &.user {
+    margin-left: 12px;
+    order: 2;
+  }
+}
+
+.message-box {
+  border: 1px solid #666;
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 120px;
+  flex-grow: 1;
+}
+
+.send-box {
+  flex-grow: 1;
+  display: flex;
 }

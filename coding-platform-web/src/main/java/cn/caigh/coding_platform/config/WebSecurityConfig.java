@@ -38,7 +38,9 @@ public class WebSecurityConfig {
       "/graph/captcha.json",
       "/graph/captcha/verify.json",
       "/tencent/encryptappid.json",
-      "/tencent/verifyappid.json"
+      "/tencent/verifyappid.json",
+      "/ai/generatestream.json",
+      "/ai/chat.json"
   };
 
   @Autowired

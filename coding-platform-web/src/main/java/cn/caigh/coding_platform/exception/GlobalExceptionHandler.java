@@ -95,6 +95,7 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler({AuthenticationException.class})
   public ResultVo<String> authenticationExceptionHandler(AuthenticationException e) {
+    e.printStackTrace();
     return ResultVo.failed(GlobalExceptionMsg.AuthenticationMsg.getMessage());
   }
 

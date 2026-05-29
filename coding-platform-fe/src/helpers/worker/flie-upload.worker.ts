@@ -16,9 +16,6 @@ export interface FileUploadWorkerApi {
 }
 
 class FileUploadWorker implements FileUploadWorkerApi {
-  private MAX_CONCURRENT: number = 3;
-  private MAX_RETRIES: number = 3;
-
   /**
    * 这个是对整个文件进行 hash 计算，一次性将整个文件加载到内存。对于大文件（如几十GB），浏览器很容易内存溢出，导致页面奔溃或浏览器直接挂掉
    */

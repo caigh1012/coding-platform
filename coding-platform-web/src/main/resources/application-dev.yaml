@@ -10,6 +10,9 @@ logging:
     org.springframework.security: DEBUG
 
 spring:
+  ai:
+    deepseek:
+      api-key: 54545 # deepseek key
   application:
     name: coding-platform
   main:
@@ -17,9 +20,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.106.127.203:3306/coding-platform?useSSL=false&rewriteBatchedStatements=true
+    url: jdbc:mysql://127.0.0.1:3306/coding-platform?useSSL=false&rewriteBatchedStatements=true
     username: root
-    password: Root#123
+    password: root123456
     druid:
       initial-size: 5
       min-idle: 5
@@ -27,7 +30,7 @@ spring:
       max-wait: 60000
   data:
     redis:
-      host: 39.106.127.203
+      host: 192.168.1.203
       port: 6379
       timeout: 30s # 客户端连接超时处理
       jedis:
